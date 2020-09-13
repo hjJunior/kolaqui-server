@@ -26,13 +26,6 @@ class SubmitExameAttempt implements ShouldQueue {
     }
   }
 
-  public function failed(Throwable $exception) {
-    dump("Deu ruim");
-    dump($exception);
-
-    echo ("Deu ruimmmmm");
-  }
-
   private function handleAnswer($answerInput) {
     $question = $this->getQuestion($answerInput['questionId'], $answerInput['questionHtml']);
     $answer = $this->getAnswer($answerInput['answerId'], $answerInput['answerHtml'], $question->id);

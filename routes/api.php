@@ -20,5 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::namespace('Api')->group(function () {
   Route::post('exame-review', 'ExameReviewController');
-  Route::apiResource('questions', 'QuestionsController')->only(['index', 'show']);
+  Route::apiResource('questions', 'QuestionsController')->only(['index', 'show', 'store']);
 });
