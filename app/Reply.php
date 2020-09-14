@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model {
   protected $hidden = [
-    'created_at', 'updated_at', 'question_id', 'answer_id'
+    'created_at', 'updated_at', 'question_id', 'answer_id', 'correct', 'attempt_id'
   ];
 
   function question() {

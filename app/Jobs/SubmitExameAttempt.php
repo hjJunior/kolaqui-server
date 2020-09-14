@@ -15,9 +15,11 @@ class SubmitExameAttempt implements ShouldQueue {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
   
   protected $answers;
+  protected $attemptId;
   
-  public function __construct($answers) {
-    $this->answers = $answers;
+  public function __construct($attributes = []) {
+    $this->answers = $attributes["answers"];
+    $this->attemptId = $attributes["attemptId"];
   }
   
   public function handle() {
@@ -35,8 +37,10 @@ class SubmitExameAttempt implements ShouldQueue {
   }
 
   private function createReply($question, $answer, $isCorrect) {
-    $reply = new Reply;
-    $reply->correct = $isCorrect;
+    $reply = Reply::firstOrCreate([
+      'correct' => $isCorrect,
+      'attempt_id' => $this->attemptId,
+    ]);
 
     $reply->question()->associate($question);
     $reply->answer()->associate($answer);

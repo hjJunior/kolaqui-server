@@ -8,7 +8,8 @@ use App\Jobs\SubmitExameAttempt;
 
 class ExameReviewController extends Controller {
   public function __invoke(Request $request) {
-    SubmitExameAttempt::dispatch($request->input('answers'));
+    $attributes = $request->only('answers', 'attemptId');
+    SubmitExameAttempt::dispatch($attributes);
 
     return array('status' => 'scheduled');
   }
