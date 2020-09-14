@@ -29,12 +29,14 @@ class SubmitExameAttempt implements ShouldQueue {
   private function handleAnswer($answerInput) {
     $question = $this->getQuestion($answerInput['questionId'], $answerInput['questionHtml']);
     $answer = $this->getAnswer($answerInput['answerId'], $answerInput['answerHtml'], $question->id);
+    $isCorrect = $answerInput['isCorrect'];
 
-    return $this->createReply($question, $answer);
+    return $this->createReply($question, $answer, $isCorrect);
   }
 
-  private function createReply($question, $answer) {
+  private function createReply($question, $answer, $isCorrect) {
     $reply = new Reply;
+    $reply->correct = $isCorrect;
 
     $reply->question()->associate($question);
     $reply->answer()->associate($answer);
