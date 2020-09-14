@@ -1,0 +1,33 @@
+.header {
+  background-color: #01B075;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+
+  &__logo {
+    margin-right: 1rem;
+  }
+  
+  &__navigation {
+    display: flex;
+    list-style-type: none;
+
+    li {
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
+
+      a,
+      a.active {
+        color: white;
+        text-decoration: none;
+
+        &:hover {
+          border-bottom: 2px solid white;
+        }
+      }
+    }
+  }
+}
