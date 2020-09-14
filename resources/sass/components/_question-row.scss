@@ -1,0 +1,29 @@
+.question-row {
+  background-color: #2e2f33;
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 10px;
+  color: white;
+  max-height: 200px;
+  overflow: hidden;
+  position: relative;
+
+  &__stats {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    min-width: 100px;
+    background: #01B075;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__content {
+    color: white;
+    text-decoration: none;
+  }
+}

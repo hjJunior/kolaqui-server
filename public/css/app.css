@@ -12,6 +12,10 @@ body {
   font-size: 16px;
 }
 
+.display-large-text {
+  font-size: 2rem;
+}
+
 .header {
   background-color: #01B075;
   padding: 1rem;
@@ -43,5 +47,51 @@ body {
 .header__navigation li a:hover,
 .header__navigation li a.active:hover {
   border-bottom: 2px solid white;
+}
+
+.question-row {
+  background-color: #2e2f33;
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 10px;
+  color: white;
+  max-height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.question-row__stats {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  min-width: 100px;
+  background: #01B075;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.question-row__content {
+  color: white;
+  text-decoration: none;
+}
+
+.card {
+  background-color: #2e2f33;
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 10px;
+  color: white;
+}
+
+.answer-row {
+  padding: 1rem;
+}
+
+.answer-row--corect {
+  background: #01B075;
 }
 

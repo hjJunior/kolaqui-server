@@ -16,6 +16,10 @@ class Question extends Model {
     return $this->hasMany('App\Answer');
   }
 
+  function replies() {
+    return $this->hasMany('App\Reply');
+  }
+
   protected $hidden = [
     'created_at', 'updated_at'
   ];

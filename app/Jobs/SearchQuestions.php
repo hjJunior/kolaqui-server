@@ -18,8 +18,7 @@ class SearchQuestions implements ShouldQueue {
   
   public function handle() {
     return Question::search($this->search)
-      ->take(5)
-      ->get();
+      ->paginate();
   }
 
   private function normalizeSearch($search) {

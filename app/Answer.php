@@ -24,6 +24,10 @@ class Answer extends Model {
     return $this->hasMany('App\Reply');
   }
 
+  function isCorrect() {
+    return $this->replies()->where('correct', true)->count() >= 1;
+  }
+
   protected $indexConfigurator = ElasticSearchIndex\AnswersIndexConfigurator::class;
 
   protected $mapping = [
