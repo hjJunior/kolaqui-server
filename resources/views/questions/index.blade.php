@@ -30,4 +30,7 @@
       </a>
     </div>
   @endforeach
+  <div class="pagination-section">
+    {!! $questions->links("pagination::bootstrap-4") !!}
+  </div>
 @endsection

@@ -1,0 +1,126 @@
+$color_1: #01B075;
+$color_2: #201A31;
+$color_3: #fff;
+$color_4: #6c757d;
+$background_color_1: #fff;
+$background_color_2: #e9ecef;
+$background_color_3: #01B075;
+$border_color_1: #dee2e6;
+$border_color_2: #01B075;
+
+.pagination {
+	display: -ms-flexbox;
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+	border-radius: .25rem;
+}
+
+.page-link {
+	position: relative;
+	display: block;
+	padding: .5rem .75rem;
+	margin-left: -1px;
+	line-height: 1.25;
+	color: $color_1;
+	background-color: $background_color_1;
+	border: 1px solid #dee2e6;
+	&:hover {
+		z-index: 2;
+		color: $color_2;
+		text-decoration: none;
+		background-color: $background_color_2;
+		border-color: $border_color_1;
+	}
+	&:focus {
+		z-index: 3;
+		outline: 0;
+		box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+	}
+}
+
+.page-item {
+	&:first-child {
+		.page-link {
+			margin-left: 0;
+			border-top-left-radius: .25rem;
+			border-bottom-left-radius: .25rem;
+		}
+	}
+	&:last-child {
+		.page-link {
+			border-top-right-radius: .25rem;
+			border-bottom-right-radius: .25rem;
+		}
+	}
+}
+
+.page-item.active {
+	.page-link {
+		z-index: 3;
+		color: $color_3;
+		background-color: $background_color_3;
+		border-color: $border_color_2;
+	}
+}
+
+.page-item.disabled {
+	.page-link {
+		color: $color_4;
+		pointer-events: none;
+		cursor: auto;
+		background-color: $background_color_1;
+		border-color: $border_color_1;
+	}
+}
+
+.pagination-lg {
+	.page-link {
+		padding: .75rem 1.5rem;
+		font-size: 1.25rem;
+		line-height: 1.5;
+	}
+	.page-item {
+		&:first-child {
+			.page-link {
+				border-top-left-radius: .3rem;
+				border-bottom-left-radius: .3rem;
+			}
+		}
+		&:last-child {
+			.page-link {
+				border-top-right-radius: .3rem;
+				border-bottom-right-radius: .3rem;
+			}
+		}
+	}
+}
+
+.pagination-sm {
+	.page-link {
+		padding: .25rem .5rem;
+		font-size: .875rem;
+		line-height: 1.5;
+	}
+	.page-item {
+		&:first-child {
+			.page-link {
+				border-top-left-radius: .2rem;
+				border-bottom-left-radius: .2rem;
+			}
+		}
+		&:last-child {
+			.page-link {
+				border-top-right-radius: .2rem;
+				border-bottom-right-radius: .2rem;
+			}
+		}
+	}
+}
+
+.pagination-section {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
