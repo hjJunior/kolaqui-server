@@ -95,3 +95,54 @@ body {
   background: #01B075;
 }
 
+.search-container {
+  background: #201A31;
+  width: 100%;
+  padding: 4rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 3rem;
+  color: #01B075;
+  border-top: 2px solid #01B075;
+  border-bottom: 2px solid #01B075;
+}
+
+.search-container__form {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container__input {
+  position: relative;
+  border-radius: 20px;
+  background: white;
+  max-width: 40rem;
+  width: 100%;
+}
+
+.search-container__input input {
+  border: 0;
+  width: 100%;
+  background: none;
+  padding: 0.8rem;
+  font-size: 1rem;
+}
+
+.search-container__search-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  color: #01B075;
+}
+
+.search-container__search-icon svg {
+  width: 2rem;
+  height: 1rem;
+}
+
