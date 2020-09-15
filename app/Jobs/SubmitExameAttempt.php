@@ -32,7 +32,6 @@ class SubmitExameAttempt implements ShouldQueue {
     $question = $this->getQuestion($answerInput['questionId'], $answerInput['questionHtml']);
     $answer = $this->getAnswer($answerInput['answerId'], $answerInput['answerHtml'], $question->id);
     $isCorrect = $answerInput['isCorrect'];
-
     return $this->createReply($question, $answer, $isCorrect);
   }
 
@@ -40,10 +39,10 @@ class SubmitExameAttempt implements ShouldQueue {
     $reply = Reply::firstOrCreate([
       'correct' => $isCorrect,
       'attempt_id' => $this->attemptId,
+      'question_id' => $question->id,
+      'answer_id' => $answer->id,
     ]);
 
-    $reply->question()->associate($question);
-    $reply->answer()->associate($answer);
     $reply->save();
   }
 
