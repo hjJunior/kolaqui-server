@@ -33,7 +33,8 @@ class CreateQuestion implements ShouldQueue {
 
   private function registerQuestion() {
     return Question::firstOrCreate([
-      'slug' => $this->questionSlug,
+      'slug' => $this->questionSlug
+    ], [
       'content' => $this->questionHtml
     ]);
   }
