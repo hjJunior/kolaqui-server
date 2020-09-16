@@ -34,6 +34,7 @@ class Question extends Model {
         'fields' => [
           'raw' => [
             'type' => 'keyword',
+            "ignore_above" => 10000
           ]
         ]
       ],
