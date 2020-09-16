@@ -13,14 +13,11 @@ use App\Answer;
 class MigratePureContentTest extends TestCase {
   use RefreshDatabase;
 
-  protected $questions;
-  protected $answers;
-
   public function setUp(): void {
     parent::setUp();
 
     Question::factory()->count(3)->create();
-    // $this->answers = Answer::factory()->count(3)->create();
+    Answer::factory()->count(3)->create();
   }
 
   public function test_if_it_updates_the_pure_content() {
