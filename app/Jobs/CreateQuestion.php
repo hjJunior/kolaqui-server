@@ -46,6 +46,6 @@ class CreateQuestion implements ShouldQueue {
       'pure_content' => strip_tags($attributes['content']),
     ]);
 
-    return Answer::firstOrCreate($saveAttributes);
+    return Answer::firstOrCreate(['slug' => $attributes['slug']], $saveAttributes);
   }
 }

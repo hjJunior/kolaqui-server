@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Jobs\CreateQuestion;
 use App\Question;
+use App\Answer;
 
 class CreateQuestionTest extends TestCase {
   use RefreshDatabase;
@@ -39,7 +40,7 @@ class CreateQuestionTest extends TestCase {
     // Assert database registers
     $this->assertEquals($question->slug, $this->base_args['questionId']);
     $this->assertEquals($question->content, $this->base_args['questionHtml']);
-    $this->assertAnswers($question);
+    $this->assertAnswers($question, $this->base_args);
   }
 
   public function test_not_create_new_register_if_question_is_registered() {
@@ -59,7 +60,7 @@ class CreateQuestionTest extends TestCase {
     $this->assertDatabaseCount('answers', 2);
 
     // Assert database registers
-    $this->assertAnswers($question);
+    $this->assertAnswers($question, $this->base_args);
   }
 
   public function test_not_create_new_register_for_answer_if_is_registered() {
@@ -77,13 +78,35 @@ class CreateQuestionTest extends TestCase {
     $this->assertDatabaseCount('answers', 2);
   }
 
-  private function assertAnswers($question) {
-    $answers = $question->answers()->get()->toArray();
-    $this->assertEquals($answers[0]['slug'], $this->base_args['answers'][0]['slug']);
-    $this->assertEquals($answers[0]['content'], $this->base_args['answers'][0]['content']);
-    $this->assertEquals($answers[0]['pure_content'], strip_tags($this->base_args['answers'][0]['content']));
-    $this->assertEquals($answers[1]['slug'], $this->base_args['answers'][1]['slug']);
-    $this->assertEquals($answers[1]['content'], $this->base_args['answers'][1]['content']);
-    $this->assertEquals($answers[1]['pure_content'], strip_tags($this->base_args['answers'][1]['content']));
+  public function test_when_question_exists_but_not_all_requestions() {
+    // Setup
+    $answer = Answer::factory()->create();
+    $args = $this->base_args;
+    $args['questionId'] = $answer->question()->first()->slug;
+    array_unshift($args['answers'], ['slug' => $answer->slug, 'content' => $answer->content]);
+
+    // Assert
+    $this->assertDatabaseCount('questions', 1);
+    $this->assertDatabaseCount('answers', 1);
+
+    // Act
+    $job = new CreateQuestion($args);
+    $job->handle();
+
+    // Assert
+    $this->assertDatabaseCount('questions', 1);
+    $this->assertDatabaseCount('answers', 3);
+    
+    $this->assertAnswers($answer->question()->first(), $args);
+  }
+
+  private function assertAnswers($question, $args) {
+    $answers = collect($question->answers()->get()->toArray())->all();
+
+    foreach($answers as $index => $answer) {
+      $this->assertEquals($answers[$index]['slug'], $args['answers'][$index]['slug']);
+      $this->assertEquals($answers[$index]['content'], $args['answers'][$index]['content']);
+      $this->assertEquals($answers[$index]['pure_content'], strip_tags($args['answers'][$index]['content']));
+    }
   }
 }
