@@ -21,6 +21,10 @@ class Question extends Model {
     return $this->hasMany('App\Reply');
   }
 
+  public function scopeHasReplies($query) {
+    return $query->has("replies");
+  }
+
   protected $hidden = [
     'created_at', 'updated_at'
   ];

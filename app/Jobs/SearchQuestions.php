@@ -18,7 +18,12 @@ class SearchQuestions implements ShouldQueue {
   
   public function handle() {
     return Question::search($this->search)
+      ->whereIn('id', $this->questionsWithRepliesIds())
       ->paginate();
+  }
+
+  private function questionsWithRepliesIds() {
+    return Question::hasReplies()->pluck('id')->all();
   }
 
   private function normalizeSearch($search) {
