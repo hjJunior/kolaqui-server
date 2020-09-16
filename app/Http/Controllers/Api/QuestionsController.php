@@ -13,10 +13,10 @@ class QuestionsController extends Controller {
     return SearchQuestions::dispatchNow($request->input('search', '*'));
   }
 
-  public function show($id) {
-    return Question::where('id', $id)
+  public function show($slug) {
+    return Question::where('slug', $slug)
       ->with('answers.replies')
-      ->get();
+      ->firstOrFail();
   }
 
   public function store(Request $request) {
