@@ -47,6 +47,7 @@ class CreateQuestionTest extends TestCase {
     $question = new Question([
       'slug' => 'question-slug-1',
       'content' => '<p>Conteudo aqui</p>',
+      'pure_content' => 'Conteudo aqui'
     ]);
     $question->save();
 
@@ -80,7 +81,9 @@ class CreateQuestionTest extends TestCase {
     $answers = $question->answers()->get()->toArray();
     $this->assertEquals($answers[0]['slug'], $this->base_args['answers'][0]['slug']);
     $this->assertEquals($answers[0]['content'], $this->base_args['answers'][0]['content']);
+    $this->assertEquals($answers[0]['pure_content'], strip_tags($this->base_args['answers'][0]['content']));
     $this->assertEquals($answers[1]['slug'], $this->base_args['answers'][1]['slug']);
     $this->assertEquals($answers[1]['content'], $this->base_args['answers'][1]['content']);
+    $this->assertEquals($answers[1]['pure_content'], strip_tags($this->base_args['answers'][1]['content']));
   }
 }

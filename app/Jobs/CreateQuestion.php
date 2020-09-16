@@ -35,11 +35,17 @@ class CreateQuestion implements ShouldQueue {
     return Question::firstOrCreate([
       'slug' => $this->questionSlug
     ], [
-      'content' => $this->questionHtml
+      'content' => $this->questionHtml,
+      'pure_content' => strip_tags($this->questionHtml),
     ]);
   }
 
   private function registerAnswer($attributes = [], $questionId) {
-    return Answer::firstOrCreate(array_merge($attributes, ['question_id' => $questionId]));
+    $saveAttributes = array_merge($attributes, [
+      'question_id' => $questionId,
+      'pure_content' => strip_tags($attributes['content']),
+    ]);
+
+    return Answer::firstOrCreate($saveAttributes);
   }
 }

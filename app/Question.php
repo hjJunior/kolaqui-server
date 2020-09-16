@@ -10,7 +10,7 @@ class Question extends Model {
   use Searchable, HasFactory;
   
   protected $fillable = [
-    'slug', 'content'
+    'slug', 'content', 'pure_content'
   ];
 
   function answers() {
@@ -29,7 +29,7 @@ class Question extends Model {
   
   protected $mapping = [
     'properties' => [
-      'content' => [
+      'pure_content' => [
         'type' => 'text',
         'fields' => [
           'raw' => [

@@ -10,7 +10,7 @@ class Answer extends Model {
   use Searchable, HasFactory;
 
   protected $fillable = [
-    'slug', 'content', 'question_id'
+    'slug', 'content', 'question_id', 'pure_content'
   ];
 
   protected $hidden = [
