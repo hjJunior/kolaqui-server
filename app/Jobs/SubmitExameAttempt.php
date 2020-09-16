@@ -14,50 +14,37 @@ use App\Reply;
 class SubmitExameAttempt implements ShouldQueue {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
   
-  protected $answers;
+  protected $replies;
   protected $attemptId;
   
   public function __construct($attributes = []) {
-    $this->answers = $attributes["answers"];
+    $this->replies = $attributes["replies"];
     $this->attemptId = $attributes["attemptId"];
   }
   
   public function handle() {
-    foreach ($this->answers as $answer) {
-      $this->handleAnswer($answer);
+    foreach ($this->replies as $reply) {
+      $this->handleReply($reply);
     }
   }
 
-  private function handleAnswer($answerInput) {
-    $question = $this->getQuestion($answerInput['questionId'], $answerInput['questionHtml']);
-    $answer = $this->getAnswer($answerInput['answerId'], $answerInput['answerHtml'], $question->id);
-    $isCorrect = $answerInput['isCorrect'];
+  private function handleReply($replyInput) {
+    $question = Question::where('slug', $replyInput['questionId'])->first();
+    $answer = Answer::where('slug', $replyInput['answerId'])->first();
+    $isCorrect = $replyInput['isCorrect'];
+
     return $this->createReply($question, $answer, $isCorrect);
   }
 
   private function createReply($question, $answer, $isCorrect) {
     $reply = Reply::firstOrCreate([
-      'correct' => $isCorrect,
       'attempt_id' => $this->attemptId,
       'question_id' => $question->id,
       'answer_id' => $answer->id,
+    ], [
+      'correct' => $isCorrect,
     ]);
 
     $reply->save();
-  }
-
-  private function getQuestion($questionSlug, $questionHtml) {
-    return Question::firstOrCreate([
-      'slug' => $questionSlug,
-      'content' => $questionHtml
-    ]);
-  }
-
-  private function getAnswer($answerSlug, $answerHtml, $questionId) {
-    return Answer::firstOrCreate([
-      'slug' => $answerSlug,
-      'content' => $answerHtml,
-      'question_id' => $questionId,
-    ]);
   }
 }

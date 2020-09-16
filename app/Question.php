@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use ScoutElastic\Searchable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Question extends Model {
-  use Searchable;
+  use Searchable, HasFactory;
   
   protected $fillable = [
     'slug', 'content'
