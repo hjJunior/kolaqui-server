@@ -5,7 +5,6 @@
     </svg>
   </a>
   <ul class="header__navigation">
-    <li><a href="#">Baixar extenção</a></li>
-    <li><a href="#">Como instalar</a></li>
+    <li><a href="/extension-{{ env('EXTENSION_VERSION')}}.zip">Baixar extenção</a></li>
   </ul>
 </div>
