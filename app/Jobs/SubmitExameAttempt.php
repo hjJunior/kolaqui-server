@@ -23,8 +23,18 @@ class SubmitExameAttempt implements ShouldQueue {
   }
   
   public function handle() {
+    $faileds = [];
+
     foreach ($this->replies as $reply) {
-      $this->handleReply($reply);
+      try {
+        $this->handleReply($reply);
+      } catch (\Throwable $th) {
+        $faileds[] = $th;
+      }
+    }
+
+    if (count($faileds) >= 1) {
+      throw new \Exception('Error while handling some replies');
     }
   }
 

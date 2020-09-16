@@ -60,6 +60,21 @@ class SubmitExameAttemptTest extends TestCase {
     $this->assertRegisters();
   }
 
+  public function test_it_when_not_exists_the_first_question() {
+    // Setup
+    $new_args = $this->base_args;
+    $new_args['replies'][0]['questionId'] = 'this-not-exists';
+    $job = new SubmitExameAttempt($new_args);
+
+    $this->expectException(\Exception::class);
+    $this->expectExceptionMessage('Error while handling some replies');
+
+    // Act
+    $job->handle();
+
+    $this->assertDatabaseCount('replies', 1);
+  }
+
   private function assertRegisters() {
     $this->assertDatabaseCount('replies', 2);
     $replies = Reply::all();
