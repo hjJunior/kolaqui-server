@@ -60,19 +60,27 @@ class SubmitExameAttemptTest extends TestCase {
     $this->assertRegisters();
   }
 
-  public function test_it_when_not_exists_the_first_question() {
-    // Setup
-    $new_args = $this->base_args;
-    $new_args['replies'][0]['questionId'] = 'this-not-exists';
-    $job = new SubmitExameAttempt($new_args);
-
-    $this->expectException(\Exception::class);
-    $this->expectExceptionMessage('Error while handling some replies');
+  public function test_register_reply_even_if_not_exists_question_or_answer_ids() {
+    $args = [
+      'attemptId' => 'attempt-1',
+      'replies' => [
+        [
+          'answerId' => 'non-existent-answer-slug-1',
+          'isCorrect' => true,
+          'questionId' => 'non-existent-question-slug-1',
+        ]
+      ]
+    ];
 
     // Act
+    $job = new SubmitExameAttempt($args);
     $job->handle();
 
+    // Assert
     $this->assertDatabaseCount('replies', 1);
+
+    $reply = Reply::first();
+    $this->assertEquals($reply->correct, $args['replies'][0]['isCorrect']);
   }
 
   private function assertRegisters() {

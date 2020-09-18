@@ -26,11 +26,11 @@ class SubmitExameAttempt implements ShouldQueue {
     $faileds = [];
 
     foreach ($this->replies as $reply) {
-      try {
+      // try {
         $this->handleReply($reply);
-      } catch (\Throwable $th) {
-        $faileds[] = $th;
-      }
+      // } catch (\Throwable $th) {
+      //   $faileds[] = $th;
+      // }
     }
 
     if (count($faileds) >= 1) {
@@ -49,8 +49,8 @@ class SubmitExameAttempt implements ShouldQueue {
   private function createReply($question, $answer, $isCorrect) {
     $reply = Reply::firstOrCreate([
       'attempt_id' => $this->attemptId,
-      'question_id' => $question->id,
-      'answer_id' => $answer->id,
+      'question_id' => $question != null ? $question->id : null,
+      'answer_id' => $question != null ? $answer->id : null,
     ], [
       'correct' => $isCorrect,
     ]);
