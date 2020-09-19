@@ -26,6 +26,7 @@ E configure as seguintes variaveis de acordo com o seu ambiente (caso necessario
 
 ```
 composer install
+npm install
 ```
 
 ### Configurar banco de dados
@@ -58,6 +59,12 @@ sudo -i service elasticsearch start
 
 ```
 php artisan queue:listen
+```
+
+5. Iniciar mix watch
+
+```
+npm run watch
 ```
 
 ## Debugging
