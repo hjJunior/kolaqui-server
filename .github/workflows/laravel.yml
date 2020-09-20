@@ -25,6 +25,8 @@ jobs:
         version: 7.9.1
     - name: Migrate Database
       run: php artisan migrate --env=testing
+    - name: Migrate ElasticSearch
+      run: php artisan elastic:migrate --env=testing
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_USERNAME: postgres

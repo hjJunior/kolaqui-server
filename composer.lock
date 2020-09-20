@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8bc893c08ecda0113e32461add9f42a8",
+    "content-hash": "29e47eebbb7dc1f8ed0f8f3fb45b01a7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -57,6 +57,173 @@
                 "stack"
             ],
             "time": "2020-05-31T07:17:05+00:00"
+        },
+        {
+            "name": "babenkoivan/elastic-adapter",
+            "version": "v1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/babenkoivan/elastic-adapter.git",
+                "reference": "d2a2efe705d8fbdbc70f3fe257435d585f02fb60"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/babenkoivan/elastic-adapter/zipball/d2a2efe705d8fbdbc70f3fe257435d585f02fb60",
+                "reference": "d2a2efe705d8fbdbc70f3fe257435d585f02fb60",
+                "shasum": ""
+            },
+            "require": {
+                "elasticsearch/elasticsearch": "^7.3",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "phpstan/phpstan": "^0.12.32",
+                "phpunit/phpunit": "^8.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ElasticAdapter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Babenko",
+                    "email": "babenko.i.a@gmail.com"
+                }
+            ],
+            "description": "Adapter for official PHP Elasticsearch client",
+            "keywords": [
+                "adapter",
+                "client",
+                "elastic",
+                "elasticsearch",
+                "php"
+            ],
+            "time": "2020-08-22T09:03:59+00:00"
+        },
+        {
+            "name": "babenkoivan/elastic-client",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/babenkoivan/elastic-client.git",
+                "reference": "ab5de56bb179a4ef5505058f69c9db95c8bdf1d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/babenkoivan/elastic-client/zipball/ab5de56bb179a4ef5505058f69c9db95c8bdf1d5",
+                "reference": "ab5de56bb179a4ef5505058f69c9db95c8bdf1d5",
+                "shasum": ""
+            },
+            "require": {
+                "elasticsearch/elasticsearch": "^7.3",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "orchestra/testbench": "^4.3",
+                "phpstan/phpstan": "^0.12.32",
+                "phpunit/phpunit": "^8.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ElasticClient\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ElasticClient\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Babenko",
+                    "email": "babenko.i.a@gmail.com"
+                }
+            ],
+            "description": "The official PHP Elasticsearch client integrated with Laravel",
+            "keywords": [
+                "client",
+                "elastic",
+                "elasticsearch",
+                "laravel",
+                "php"
+            ],
+            "time": "2020-07-09T10:19:44+00:00"
+        },
+        {
+            "name": "babenkoivan/elastic-migrations",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/babenkoivan/elastic-migrations.git",
+                "reference": "ba3b6e9c3ae6ab62bef011235eb98e08ab36659a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/babenkoivan/elastic-migrations/zipball/ba3b6e9c3ae6ab62bef011235eb98e08ab36659a",
+                "reference": "ba3b6e9c3ae6ab62bef011235eb98e08ab36659a",
+                "shasum": ""
+            },
+            "require": {
+                "babenkoivan/elastic-adapter": "^1.0",
+                "babenkoivan/elastic-client": "^1.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "orchestra/testbench": "^5.2",
+                "phpstan/phpstan": "^0.12.32",
+                "phpunit/phpunit": "^8.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ElasticMigrations\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ElasticMigrations\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Babenko",
+                    "email": "babenko.i.a@gmail.com"
+                }
+            ],
+            "description": "Elasticsearch migrations for Laravel",
+            "keywords": [
+                "elastic",
+                "elasticsearch",
+                "laravel",
+                "migrations",
+                "php"
+            ],
+            "time": "2020-07-17T11:16:14+00:00"
         },
         {
             "name": "babenkoivan/scout-elasticsearch-driver",
