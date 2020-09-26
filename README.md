@@ -1,3 +1,5 @@
+# Kolaqui
+![Tests](https://github.com/hjJunior/kolaqui-server/workflows/Tests/badge.svg)
 
 ## Dependências do projeto
 
@@ -33,6 +35,7 @@ npm install
 
 ```
 php artisan migrate
+php artisan elastic:migrate
 ```
 
 ### Iniciando o projeto
@@ -78,6 +81,8 @@ Feito isso, você deverá fazer a migração do banco de dados
 
 ```
 php aritsan migrate --env=testing
+# (Opcional) Execute o comando para criar os index do elasticsearch para o enviroment de testing
+php artisan elastic:migrate --env=testing 
 ``` 
 
 E então uma vez feito isso, para rodar execute:
