@@ -9,6 +9,9 @@
 - PHP: `^7.2.5`
 - Composer
 
+## Google Chrome Extension
+O projeto da extenção segue neste outro repositorio: https://github.com/hjJunior/kolaqui-extension
+
 ## Setup do projeto
 ### Configurar variaveis de ambiente
 
