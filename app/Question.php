@@ -34,13 +34,7 @@ class Question extends Model {
   protected $mapping = [
     'properties' => [
       'pure_content' => [
-        'type' => 'text',
-        'fields' => [
-          'raw' => [
-            'type' => 'keyword',
-            "ignore_above" => 10000
-          ]
-        ]
+        'type' => 'text'
       ],
     ]
   ];
