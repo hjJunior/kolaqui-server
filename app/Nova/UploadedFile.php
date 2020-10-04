@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Jobs\ParseAttemptHtmlDocument;
+use App\Nova\Actions\ImportQuestionsFromUploadedFile;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -48,6 +49,7 @@ class UploadedFile extends Resource
             Code::make('Parsed', 'filename')
                 ->language('php')
                 ->onlyOnDetail()
+                ->stacked()
                 ->resolveUsing(function($filename) {
                     $a = (new ParseAttemptHtmlDocument($this->resource))->handle();
 
@@ -97,6 +99,10 @@ class UploadedFile extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            ImportQuestionsFromUploadedFile::make()->canRun(function() {
+                return true;
+            }),
+        ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Reply extends Resource
@@ -46,6 +47,7 @@ class Reply extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make("Question"),
             BelongsTo::make("Answer"),
+            Boolean::make('Correct'),
         ];
     }
 
