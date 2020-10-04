@@ -2,7 +2,9 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\QuestionByCourse;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Text;
@@ -47,6 +49,7 @@ class Question extends Resource
             Text::make(__('Slug'), 'slug')->exceptOnForms(),
             Text::make(__('Content'), 'pure_content')->onlyOnIndex(),
             Trix::make(__('Content'), 'content'),
+            BelongsTo::make('Course'),
             HasMany::make("Replies"),
             HasMany::make("Answers"),
         ];
@@ -71,7 +74,9 @@ class Question extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            QuestionByCourse::make(),
+        ];
     }
 
     /**

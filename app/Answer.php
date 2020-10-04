@@ -3,18 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use ScoutElastic\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Answer extends Model {
-  use Searchable, HasFactory;
+  use HasFactory;
 
   protected $fillable = [
-    'slug', 'content', 'question_id', 'pure_content'
+    'content', 'question_id', 'pure_content', 'checksum'
   ];
 
   protected $hidden = [
-    'created_at', 'updated_at', 'question_id',
+    'created_at', 'updated_at', 'question_id', 'checksum'
   ];
 
   function question() {
@@ -25,23 +24,14 @@ class Answer extends Model {
     return $this->hasMany('App\Reply');
   }
 
-  function isCorrect() {
-    return $this->replies()->where('correct', true)->count() >= 1;
+  function hasReplies() {
+    return $this->replies()->count() >= 1;
   }
 
-  protected $indexConfigurator = ElasticSearchIndex\AnswersIndexConfigurator::class;
-
-  protected $mapping = [
-    'properties' => [
-      'pure_content' => [
-        'type' => 'text',
-        'fields' => [
-          'raw' => [
-            'type' => 'keyword',
-            "ignore_above" => 10000
-          ]
-        ]
-      ],
-    ]
-  ];
+  function isCorrect() {
+    if ($this->hasReplies()) {
+        return $this->replies()->where('correct', true)->count() >= 1;
+    }
+    return NULL;
+  }
 }

@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Text;
@@ -22,7 +23,7 @@ class Answer extends Resource
      *
      * @var string
      */
-    public static $title = 'slug';
+    public static $title = 'pure_content';
 
     public static $displayInNavigation = false;
 
@@ -44,10 +45,10 @@ class Answer extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Slug'), 'slug')->exceptOnForms(),
+            ID::make(__('ID'))->sortable(),
+            Text::make(__('Checksum'))->exceptOnForms(),
             Text::make(__('Content'), 'pure_content')->onlyOnIndex(),
-            Trix::make(__('Content'), 'content'),
+            Trix::make(__('Content')),
         ];
     }
 

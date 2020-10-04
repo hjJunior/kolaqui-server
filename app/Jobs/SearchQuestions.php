@@ -13,13 +13,13 @@ class SearchQuestions implements ShouldQueue {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
   
   public function __construct($search) {
-    $this->search = $this->normalizeSearch($search);
+    $this->search = $search;
   }
   
   public function handle() {
-    return Question::search($this->search)
-      ->whereIn('id', $this->questionsWithRepliesIds())
-      ->paginate();
+    return Question::search($this->search)->paginate();
+      // ->whereIn('id', $this->questionsWithRepliesIds())
+      // ->paginate();
   }
 
   private function questionsWithRepliesIds() {
@@ -27,6 +27,6 @@ class SearchQuestions implements ShouldQueue {
   }
 
   private function normalizeSearch($search) {
-    return str_replace(['\\', '(', ')', '{', '}', '^'], '', $search);
+    // return str_replace(['\\', '(', ')', '{', '}', '^'], '', $search);
   }
 }

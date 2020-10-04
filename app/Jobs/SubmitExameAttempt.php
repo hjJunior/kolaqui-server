@@ -13,15 +13,15 @@ use App\Reply;
 
 class SubmitExameAttempt implements ShouldQueue {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-  
+
   protected $replies;
   protected $attemptId;
-  
+
   public function __construct($attributes = []) {
     $this->replies = $attributes["replies"];
     $this->attemptId = $attributes["attemptId"];
   }
-  
+
   public function handle() {
     $faileds = [];
 
@@ -40,7 +40,7 @@ class SubmitExameAttempt implements ShouldQueue {
 
   private function handleReply($replyInput) {
     $question = Question::where('slug', $replyInput['questionId'])->first();
-    $answer = Answer::where('slug', $replyInput['answerId'])->first();
+    $answer = Answer::where('checksum', $replyInput['answerId'])->first();
     $isCorrect = $replyInput['isCorrect'];
 
     return $this->createReply($question, $answer, $isCorrect);

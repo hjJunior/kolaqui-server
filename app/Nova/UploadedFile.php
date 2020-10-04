@@ -2,27 +2,29 @@
 
 namespace App\Nova;
 
+use App\Jobs\ParseAttemptHtmlDocument;
+use App\Nova\Actions\ImportQuestionsFromUploadedFile;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Reply extends Resource
+class UploadedFile extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Reply::class;
+    public static $model = \App\UploadedFile::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'filename';
 
     /**
      * The columns that should be searched.
@@ -30,10 +32,8 @@ class Reply extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'filename'
     ];
-
-    public static $displayInNavigation = false;
 
     /**
      * Get the fields displayed by the resource.
@@ -45,9 +45,16 @@ class Reply extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make("Question"),
-            BelongsTo::make("Answer"),
-            Boolean::make('Correct'),
+            Text::make('Filename')->exceptOnForms(),
+            Code::make('Parsed', 'filename')
+                ->language('php')
+                ->onlyOnDetail()
+                ->stacked()
+                ->resolveUsing(function($filename) {
+                    $a = (new ParseAttemptHtmlDocument($this->resource))->handle();
+
+                    return json_encode($a, JSON_PRETTY_PRINT);
+                }),
         ];
     }
 
@@ -92,6 +99,10 @@ class Reply extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            ImportQuestionsFromUploadedFile::make()->canRun(function() {
+                return true;
+            }),
+        ];
     }
 }
