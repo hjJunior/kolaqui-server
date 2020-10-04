@@ -2,10 +2,11 @@
 
 namespace App\Nova;
 
+use App\Jobs\ParseAttemptHtmlDocument;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class UploadedFile extends Resource
@@ -44,6 +45,14 @@ class UploadedFile extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make('Filename')->exceptOnForms(),
+            Code::make('Parsed', 'filename')
+                ->language('php')
+                ->onlyOnDetail()
+                ->resolveUsing(function($filename) {
+                    $a = (new ParseAttemptHtmlDocument($this->resource))->handle();
+
+                    return json_encode($a, JSON_PRETTY_PRINT);
+                }),
         ];
     }
 
