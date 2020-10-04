@@ -3,11 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use ScoutElastic\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Answer extends Model {
-  use Searchable, HasFactory;
+  use HasFactory;
 
   protected $fillable = [
     'slug', 'content', 'question_id', 'pure_content', 'checksum'
@@ -35,20 +34,4 @@ class Answer extends Model {
     }
     return NULL;
   }
-
-  protected $indexConfigurator = ElasticSearchIndex\AnswersIndexConfigurator::class;
-
-  protected $mapping = [
-    'properties' => [
-      'pure_content' => [
-        'type' => 'text',
-        'fields' => [
-          'raw' => [
-            'type' => 'keyword',
-            "ignore_above" => 10000
-          ]
-        ]
-      ],
-    ]
-  ];
 }
