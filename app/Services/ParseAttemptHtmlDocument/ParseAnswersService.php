@@ -9,7 +9,7 @@ use Symfony\Component\DomCrawler\Crawler;
 class ParseAnswersService {
   private Crawler $crawler;
   private string $answersSelector = '.ablock .answer > div';
-  private string $questionSelector = '.que';
+  private string $questionSelector = '.que.multichoice';
   private string $questionGradeSelector = '.grade';
 
   public function __construct(ExtendedCrawler $crawler) {

@@ -8,7 +8,7 @@ use App\Services\HtmlSanitizer;
 class ParseQuestionsService {
   private ExtendedCrawler $crawler;
 
-  private string $questionsSelector = '.que';
+  private string $questionsSelector = '.que.multichoice';
   private string $questionTextSelector = '.qtext';
   private string $flagQuestionInput = 'input.questionflagpostdata';
 
