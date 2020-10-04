@@ -5,6 +5,6 @@
     </svg>
   </a>
   <ul class="header__navigation">
-    <li><a href="/extension-{{ env('EXTENSION_VERSION')}}.zip">Baixar extenção</a></li>
+    <li><a href="https://github.com/hjJunior/kolaqui-extension/archive/master.zip">Baixar extenção</a></li>
   </ul>
 </div>
