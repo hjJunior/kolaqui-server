@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Answer;
+use App\Course;
 use App\Question;
 use App\Reply;
 use App\UploadedFile;
@@ -18,10 +19,16 @@ class ImportQuestionsFromUploadedFile implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $args;
+    protected Course $course;
 
     public function __construct(UploadedFile $uploadedFile)
     {
         $this->args = ParseAttemptHtmlDocument::dispatchNow($uploadedFile);
+        $this->course = Course::firstOrCreate([
+            'slug' => $this->args['course_slug']
+        ]);
+
+        $this->course->save();
     }
 
     public function handle()
@@ -32,11 +39,13 @@ class ImportQuestionsFromUploadedFile implements ShouldQueue
     }
 
     private function handleQuestion($questionArgs) {
+        dump($this->course->id);
+
         $question = Question::firstOrCreate([
-            'slug' => $questionArgs['slug']
+            'slug' => $questionArgs['slug'],
+            'course_id' => $this->course->id,
         ], $questionArgs);
 
-        dump($question);
 
         $question->save();
 

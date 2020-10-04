@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Question extends Model {
   use Searchable, HasFactory;
-  
+
   protected $fillable = [
-    'slug', 'content', 'pure_content'
+    'slug', 'content', 'pure_content', 'course_id'
   ];
 
   function answers() {
@@ -19,6 +19,10 @@ class Question extends Model {
 
   function replies() {
     return $this->hasMany('App\Reply');
+  }
+
+  function course() {
+    return $this->belongsTo('App\Course');
   }
 
   public function scopeHasReplies($query) {
@@ -30,7 +34,7 @@ class Question extends Model {
   ];
 
   protected $indexConfigurator = ElasticSearchIndex\QuestionsIndexConfigurator::class;
-  
+
   protected $mapping = [
     'properties' => [
       'pure_content' => [

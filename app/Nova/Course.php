@@ -2,23 +2,20 @@
 
 namespace App\Nova;
 
-use App\Nova\Filters\QuestionByCourse;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Question extends Resource
+class Course extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Question::class;
+    public static $model = \App\Course::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -33,7 +30,7 @@ class Question extends Resource
      * @var array
      */
     public static $search = [
-        'id',  'content'
+        'id', 'slug'
     ];
 
     /**
@@ -46,12 +43,8 @@ class Question extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Slug'), 'slug')->exceptOnForms(),
-            Text::make(__('Content'), 'pure_content')->onlyOnIndex(),
-            Trix::make(__('Content'), 'content'),
-            BelongsTo::make('Course'),
-            HasMany::make("Replies"),
-            HasMany::make("Answers"),
+            Text::make('Slug'),
+            HasMany::make('Questions'),
         ];
     }
 
@@ -74,9 +67,7 @@ class Question extends Resource
      */
     public function filters(Request $request)
     {
-        return [
-            QuestionByCourse::make(),
-        ];
+        return [];
     }
 
     /**
