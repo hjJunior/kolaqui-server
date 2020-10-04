@@ -11,4 +11,8 @@ class UploadedFile extends Model {
   use HasFactory, Notifiable, Actionable;
 
   protected $fillable = ['filename'];
+
+  public function routeNotificationForDiscord() {
+    return  '762450560459735040';
+  }
 }

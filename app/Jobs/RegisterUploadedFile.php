@@ -18,7 +18,7 @@ class RegisterUploadedFile implements ShouldQueue {
 
   public function handle() {
     $file_path = $this->uploadFile();
-    $this->storeInDatabase($file_path);
+    return $this->storeInDatabase($file_path);
   }
 
   private function uploadFile() {
@@ -31,5 +31,7 @@ class RegisterUploadedFile implements ShouldQueue {
     ]));
 
     $uploaded_file->save();
+
+    return $uploaded_file;
   }
 }
